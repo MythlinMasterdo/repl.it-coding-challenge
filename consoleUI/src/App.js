@@ -20,20 +20,24 @@ class App extends Component {
   }
 
   handleChange(e) {
-    console.log(e.target.value);
-    this.setState({prompt: e.target.value, value: e.target.value});
+    console.log('handle', e.target.value);
+    var newState = e.target.value || e;
+    this.setState({prompt: newState, value: newState});
   }
 
   handleKeyChange(e) {
     if(e.key === "ArrowDown") {
       this.state.history.forEach(function(target, index) {
-        console.log(target.data);
         if(target.data === "> " + e.target.value) {
-          if(!index === this.state.history.length) {
-            var nextInput = this.state.history[index + 2];
+          console.log('in target data');
+          if(this.state.history) {
+            var nextInput = this.state.history[index + 2].data;
+            nextInput = nextInput.replace(/ /g,'');
+            nextInput = nextInput.substring(1);
+            console.log('next ', nextInput);
             this.setState({value: nextInput});
-            console.log('setState');
           } else {
+            console.log('in the waisted else');
             //do nothing you are at the end of the input
           }
         } else {
@@ -50,7 +54,6 @@ class App extends Component {
             nextInput = nextInput.substring(1);
             console.log('next ', nextInput);
             this.setState({value: nextInput});
-            this.forceUpdate();
           } else {
             console.log('in the waisted else');
             //do nothing you are at the end of the input
@@ -60,7 +63,6 @@ class App extends Component {
         }
       }.bind(this))
     }
-    console.log('value', this.state.value);
   }
 
   render() {
