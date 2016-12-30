@@ -6,17 +6,20 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      value: ''
+      prompt: '',
+      history: []
     }
   }
 
   handleCommandLineInput(e) {
     e.preventDefault();
-    console.log('here', this.state.value);
+    this.setState({history: this.state.history.concat([{type: 'prompt', data: this.state.prompt}])})
+    console.log('here', this.state.prompt, this.state.history);
+
   }
 
   handleChange(e) {
-    this.setState({value: e.target.value});
+    this.setState({prompt: e.target.value});
   }
   render() {
     return (
@@ -27,7 +30,6 @@ class App extends Component {
         <div>
           <form className="commandLine" onSubmit={(e) => this.handleCommandLineInput(e)}>
               <input type="text" onChange={(e) => this.handleChange(e)}></input>
-              <button type="submit">Submit</button>
           </form>
         </div>
         <p className="App-intro"></p>
