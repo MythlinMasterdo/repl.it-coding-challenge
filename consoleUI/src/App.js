@@ -7,31 +7,20 @@ class App extends Component {
     super()
     this.state = {
       prompt: '',
-      history: [{type: 'prompt', data: "hello"}, {type: 'output', data: 4}]
+      history: []
     }
   }
 
   handleCommandLineInput(e) {
     e.preventDefault();
     var executedPrompt = eval(this.state.prompt);
-    this.setState({history: this.state.history.concat([{type: 'prompt', data: this.state.prompt}, {type: 'output', data: executedPrompt}]),
+    this.setState({history: this.state.history.concat([{type: 'prompt', data: "> " + this.state.prompt}, {type: 'output', data: executedPrompt}]),
     prompt: ''});
   }
 
   handleChange(e) {
     this.setState({prompt: e.target.value});
   }
-
-  // populateConsole(e) {
-  //   console.log('called');
-  //   this.state.history.forEach(function(output) {
-  //     if(output.type === "output") {
-  //       return <p>{output.data}</p>
-  //     } else {
-  //       return <p> > {output.data}</p>
-  //     }
-  //   }.bind(this))
-  // }
 
   render() {
     return (
@@ -46,10 +35,9 @@ class App extends Component {
         </div>
         <div>
           <form className="commandLine" onSubmit={(e) => this.handleCommandLineInput(e)}>
-            <input type="text" onChange={(e) => this.handleChange(e)}></input>
+            <input type="text" placeholder="//Do Magic" onChange={(e) => this.handleChange(e)}></input>
           </form>
         </div>
-        <p className="App-intro">{this.state.history[0].data}</p>
       </div>
     );
   }
