@@ -7,8 +7,7 @@ class App extends Component {
     super()
     this.state = {
       prompt: '',
-      history: [],
-      consoleHistory: []
+      history: [{type: 'prompt', data: "hello"}, {type: 'output', data: 4}]
     }
   }
 
@@ -23,14 +22,16 @@ class App extends Component {
     this.setState({prompt: e.target.value});
   }
 
-  populateConsole(e) {
-    this.state.history.forEach(function(output) {
-      this.state.consoleHistory.push(
-        output.data
-      );
-    }.bind(this))
-    console.log(this.state.consoleHistory);
-  }
+  // populateConsole(e) {
+  //   console.log('called');
+  //   this.state.history.forEach(function(output) {
+  //     if(output.type === "output") {
+  //       return <p>{output.data}</p>
+  //     } else {
+  //       return <p> > {output.data}</p>
+  //     }
+  //   }.bind(this))
+  // }
 
   render() {
     return (
@@ -39,17 +40,16 @@ class App extends Component {
           <h2>ConsoleUI</h2>
         </div>
         <div>
-          <p onClick={(e) => this.populateConsole(e)}>here</p>
-        </div>
-        <div>
-          {this.state.consoleHistory}
+            {this.state.history.map((output, index) => (
+              <p>{output.data}</p>
+            ))}
         </div>
         <div>
           <form className="commandLine" onSubmit={(e) => this.handleCommandLineInput(e)}>
-              <input type="text" onChange={(e) => this.handleChange(e)}></input>
+            <input type="text" onChange={(e) => this.handleChange(e)}></input>
           </form>
         </div>
-        <p className="App-intro"></p>
+        <p className="App-intro">{this.state.history[0].data}</p>
       </div>
     );
   }
