@@ -7,7 +7,8 @@ class App extends Component {
     super()
     this.state = {
       prompt: '',
-      history: []
+      history: [],
+      consoleHistory: []
     }
   }
 
@@ -16,12 +17,19 @@ class App extends Component {
     var executedPrompt = eval(this.state.prompt);
     this.setState({history: this.state.history.concat([{type: 'prompt', data: this.state.prompt}, {type: 'output', data: executedPrompt}]),
     prompt: ''});
-    console.log('here', this.state.prompt, this.state.history);
-
   }
 
   handleChange(e) {
     this.setState({prompt: e.target.value});
+  }
+
+  populateConsole(e) {
+    this.state.history.forEach(function(output) {
+      this.state.consoleHistory.push(
+        output.data
+      );
+    }.bind(this))
+    console.log(this.state.consoleHistory);
   }
 
   render() {
@@ -29,6 +37,12 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <h2>ConsoleUI</h2>
+        </div>
+        <div>
+          <p onClick={(e) => this.populateConsole(e)}>here</p>
+        </div>
+        <div>
+          {this.state.consoleHistory}
         </div>
         <div>
           <form className="commandLine" onSubmit={(e) => this.handleCommandLineInput(e)}>
