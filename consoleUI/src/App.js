@@ -10,8 +10,13 @@ class App extends Component {
     }
   }
 
+  handleCommandLineInput(e) {
+    e.preventDefault();
+    console.log('here', this.state.value);
+  }
+
   handleChange(e) {
-    this.setState({value: e.target.value})
+    this.setState({value: e.target.value});
   }
   render() {
     return (
@@ -20,8 +25,9 @@ class App extends Component {
           <h2>ConsoleUI</h2>
         </div>
         <div>
-          <form>
-              <input type="text" value={this.state.value} onChange={this.handleChange}></input>
+          <form className="commandLine" onSubmit={(e) => this.handleCommandLineInput(e)}>
+              <input type="text" onChange={(e) => this.handleChange(e)}></input>
+              <button type="submit">Submit</button>
           </form>
         </div>
         <p className="App-intro"></p>
