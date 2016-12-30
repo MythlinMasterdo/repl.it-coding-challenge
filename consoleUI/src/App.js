@@ -14,7 +14,8 @@ class App extends Component {
   handleCommandLineInput(e) {
     e.preventDefault();
     var executedPrompt = eval(this.state.prompt);
-    this.setState({history: this.state.history.concat([{type: 'prompt', data: this.state.prompt}, {type: 'output', data: executedPrompt}])})
+    this.setState({history: this.state.history.concat([{type: 'prompt', data: this.state.prompt}, {type: 'output', data: executedPrompt}]),
+    prompt: ''});
     console.log('here', this.state.prompt, this.state.history);
 
   }
@@ -22,6 +23,7 @@ class App extends Component {
   handleChange(e) {
     this.setState({prompt: e.target.value});
   }
+
   render() {
     return (
       <div className="App">
