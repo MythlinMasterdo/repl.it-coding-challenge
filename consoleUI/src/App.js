@@ -65,7 +65,7 @@ class ConsoleUI extends Component {
         </div>
         <div>
             {this.state.history.map((output, index) => (
-              <p>{output.data}</p>
+              <p key={index}>{output.data}</p>
             ))}
         </div>
         <div>
