@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ConsoleUI from './App';
+import ConsoleUI from './consoleUI';
 import './index.css';
 
 ReactDOM.render(

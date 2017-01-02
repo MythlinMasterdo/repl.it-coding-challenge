@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import './App.css';
+import './consoleUI.css';
 
 class ConsoleUI extends Component {
   constructor() {
     super()
     this.state = {
-      prompt: '',
+      prompt: "",
       history: [],
-      value: ''
+      value: ""
     }
   }
 
   handleCommandLineInput(e) {
     e.preventDefault();
     var executedPrompt = eval(this.state.prompt);
-    this.setState({history: this.state.history.concat([{type: 'prompt', data: "> " + this.state.prompt}, {type: 'output', data: executedPrompt}]),
-    prompt: ''});
+    this.setState({history: this.state.history.concat([{type: "prompt", data: "> " + this.state.prompt}, {type: "output", data: executedPrompt}]),
+    prompt: ""});
   }
 
   handleChange(e) {
@@ -26,11 +26,9 @@ class ConsoleUI extends Component {
   handleKeyChange(e) {
     if(e.key === "ArrowDown") {
       this.state.history.forEach(function(target, index) {
-        console.log('original target data ', target.data);
         if(target.data === this.state.value || target.data === "> " + e.target.value) {
-          console.log('in target data', target.data, e.target.value);
             var nextInput = this.state.history[index + 2].data;
-            nextInput = nextInput.replace(/ /g,'');
+            nextInput = nextInput.replace(/ /g,"");
             nextInput = nextInput.substring(1);
             this.setState({value: nextInput});
         } else {
@@ -40,18 +38,17 @@ class ConsoleUI extends Component {
     } else if(e.key === "ArrowUp") {
       this.state.history.forEach(function(target, index) {
         if(target.data === this.state.value || target.data === "> " + e.target.value) {
-          console.log('in target data');
             var nextInput = this.state.history[index - 2].data;
-            nextInput = nextInput.replace(/ /g,'');
+            nextInput = nextInput.replace(/ /g,"");
             nextInput = nextInput.substring(1);
             this.setState({value: nextInput});
         } else {
-          console.log('not found', this.state.history, this.state.value, e.target.value );
+          console.log("not found", this.state.history, this.state.value, e.target.value );
         }
       }.bind(this))
     }
   }
-//because you modify the original array when you are searching through it so when you are comparing they are not the same
+
   render() {
     return (
       <div className="ConsoleUI">
