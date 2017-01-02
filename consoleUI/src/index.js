@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import ConsoleUI from './App';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <ConsoleUI />,
   document.getElementById('root')
 );

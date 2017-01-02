@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+class ConsoleUI extends Component {
   constructor() {
     super()
     this.state = {
@@ -20,7 +19,6 @@ class App extends Component {
   }
 
   handleChange(e) {
-    console.log('handle', e.target.value);
     var newState = e.target.value || e;
     this.setState({prompt: newState, value: newState});
   }
@@ -28,47 +26,41 @@ class App extends Component {
   handleKeyChange(e) {
     if(e.key === "ArrowDown") {
       this.state.history.forEach(function(target, index) {
-        if(target.data === "> " + e.target.value) {
-          console.log('in target data');
-          if(this.state.history) {
+        console.log('original target data ', target.data);
+        if(target.data === this.state.value || target.data === "> " + e.target.value) {
+          console.log('in target data', target.data, e.target.value);
             var nextInput = this.state.history[index + 2].data;
             nextInput = nextInput.replace(/ /g,'');
             nextInput = nextInput.substring(1);
-            console.log('next ', nextInput);
+            console.log('new ', nextInput);
             this.setState({value: nextInput});
-          } else {
-            console.log('in the waisted else');
-            //do nothing you are at the end of the input
-          }
         } else {
-          console.log('here');
+          console.log('not found', this.state.history);
         }
       }.bind(this))
     } else if(e.key === "ArrowUp") {
       this.state.history.forEach(function(target, index) {
-        if(target.data === "> " + e.target.value) {
+        console.log('original target data ', target.data);
+        // var newTargetData = target.data.replace(/ /g,'');
+        // console.log('newTarget ', newTargetData);
+        if(target.data === this.state.value || target.data === "> " + e.target.value) {
           console.log('in target data');
-          if(this.state.history) {
             var nextInput = this.state.history[index - 2].data;
             nextInput = nextInput.replace(/ /g,'');
             nextInput = nextInput.substring(1);
-            console.log('next ', nextInput);
+            console.log('new ', nextInput);
             this.setState({value: nextInput});
-          } else {
-            console.log('in the waisted else');
-            //do nothing you are at the end of the input
-          }
         } else {
-          console.log('here');
+          console.log('not found', this.state.history, this.state.value, e.target.value );
         }
       }.bind(this))
     }
   }
-
+//because you modify the original array when you are searching through it so when you are comparing they are not the same
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
+      <div className="ConsoleUI">
+        <div className="header">
           <h2>ConsoleUI</h2>
         </div>
         <div>
@@ -78,7 +70,8 @@ class App extends Component {
         </div>
         <div>
           <form className="commandLine" onSubmit={(e) => this.handleCommandLineInput(e)}>
-            <input type="text" value={this.state.value} placeholder="//Do Magic" onChange={(e) => this.handleChange(e)} onKeyDown={(e) => this.handleKeyChange(e)}></input>
+            <input type="text" value={this.state.value} placeholder="//Do Magic" onChange={(e) => this.handleChange(e)}
+            onKeyDown={(e) => this.handleKeyChange(e)} className="CLInput"></input>
           </form>
         </div>
       </div>
@@ -86,4 +79,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ConsoleUI;
