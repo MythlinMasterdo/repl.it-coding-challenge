@@ -32,7 +32,6 @@ class ConsoleUI extends Component {
             var nextInput = this.state.history[index + 2].data;
             nextInput = nextInput.replace(/ /g,'');
             nextInput = nextInput.substring(1);
-            console.log('new ', nextInput);
             this.setState({value: nextInput});
         } else {
           console.log('not found', this.state.history);
@@ -40,15 +39,11 @@ class ConsoleUI extends Component {
       }.bind(this))
     } else if(e.key === "ArrowUp") {
       this.state.history.forEach(function(target, index) {
-        console.log('original target data ', target.data);
-        // var newTargetData = target.data.replace(/ /g,'');
-        // console.log('newTarget ', newTargetData);
         if(target.data === this.state.value || target.data === "> " + e.target.value) {
           console.log('in target data');
             var nextInput = this.state.history[index - 2].data;
             nextInput = nextInput.replace(/ /g,'');
             nextInput = nextInput.substring(1);
-            console.log('new ', nextInput);
             this.setState({value: nextInput});
         } else {
           console.log('not found', this.state.history, this.state.value, e.target.value );
